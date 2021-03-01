@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ASCII-art WEB</title>
-<!--    <script src="ascii-art.js" defer></script>-->
+    <script src="./js/ascii-art.js" defer></script>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" type="image/png" href="./img/logo.png" />
 </head>
@@ -16,7 +16,7 @@
         Afin qu'elle prenne effet, vous devez cliquer autre par sur la page.
     </p>
 
-    <h1>Les caractères qui fonctionnent sont :</h1>
+    <h1>Les caractères autorisés sont :</h1>
     <p>!"#$%&'()*+,-./<br>
         :;<=>?@<br>
         [\]^_`<br>
@@ -24,14 +24,16 @@
         0123456789<br>
         abcdefghijklmnopqrstuvwxyz<br>
         ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
-        (plus les espaces et le retour à la ligne)
+        (plus les espaces et le retour à la ligne)<br>
+        <br>
+        Tout caractère non autorisé sera ignoré.
     </p>
     <p>Vous pouvez également choisir la police d'écriture parmis celles disponibles.</p>
 
     <div id="main">
         <div>
             <h2>Texte :</h2>
-            <textarea id="input"></textarea>
+            <textarea onkeyup="afficherAscii()" id="input"></textarea>
         </div>
         <div>
             <h2>Couleur du texte</h2>
