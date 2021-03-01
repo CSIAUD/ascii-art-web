@@ -19,12 +19,30 @@ color.addEventListener('change', () => {
     output.style.color = color.value
 })
 
+
+let valid=false;
+for(let i=0; i<police.length; i++){
+    if(police[i].checked===true){
+        valid=true;
+    }
+}
+if(valid===false){
+    police[0].checked=true
+}
+
+afficherAscii()
 function afficherAscii(){
     let text = ""
     let lettres=[];
     lettres.push([]);
     let nbRt=0;
     let font = 0;
+    for(let i=0; i<police.length; i++){
+        if(police[i].checked===true){
+            font=i;
+            break;
+        }
+    }
 
     for(let val of input.value){
         for(let char of chars){
@@ -78,9 +96,6 @@ function afficherAscii(){
         }
         txt+="</table>";
     }
-
     output.innerHTML=txt;
     output.style.color = color.value
 }
-
-afficherAscii()
