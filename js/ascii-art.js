@@ -13,16 +13,25 @@ const ascii=[JSON.parse(fichier0.innerText),JSON.parse(fichier1.innerText),JSON.
 
 const chars=['!','\"','#','$','%','&','\'','(',')','*','+',',','-','.','/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','[','\\',']','^','_','`','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','~','\n',' '];
 
-//===================================
+let larChars = []
+for(let i of ascii){
+    let temp = []
+    for(let j of i){
+        temp.push(j[0].length * 8)
+    }
+    larChars.push(temp)
+}
 
-color.addEventListener('load', () => {
+//=================================== modification de la couleur du texte
+
+color.addEventListener('load', () => { // au chargement de la page
     output.style.color = color.value
 })
-color.addEventListener('change', () => {
+color.addEventListener('change', () => { // au changement de couleur
     output.style.color = color.value
 })
 
-//===================================
+//=================================== initialistion des radioCheck du choix de font
 
 let valid=false;
 for(let i=0; i<police.length; i++){
@@ -34,7 +43,7 @@ if(valid===false){
     police[0].checked=true
 }
 
-//===================================
+//=================================== initialistaion des radioChecks  du choix de l'alignement
 
 valid=false;
 for(let i=0; i<align.length; i++){
@@ -50,23 +59,32 @@ if(valid===false){
 
 afficherAscii()
 function afficherAscii(){
+    const larPage = document.getElementsByTagName('html')[0].getBoundingClientRect().right
+
     let text = ""
-    let lettres=[];
-    lettres.push([]);
-    let nbRt=0;
-    let font = 0;
+    let lettres=[]
+    lettres.push([])
+    let nbRt=0
+    let font = 0
     for(let i=0; i<police.length; i++){
         if(police[i].checked===true){
-            font=i;
-            break;
+            font=i
+            break
         }
     }
 
     //------------------------------
 
+    let width = 0
     for(let val of input.value){
         for(let char of chars){
             if(val === char){
+                if(width + larChars[font][chars.indexOf(char)] > larPage-larChars[font][chars.indexOf(char)]){
+                    text += "\n"
+                    width = 0
+                }else{
+                    width += larChars[font][chars.indexOf(char)]
+                }
                 text += val
                 break
             }
@@ -79,10 +97,10 @@ function afficherAscii(){
 
     for(let i=0; i<text.length; i++){
         if(text[i]==='\n'){
-            lettres.push([]);
-            nbRt++;
+            lettres.push([])
+            nbRt++
         }else{
-            lettres[nbRt].push(chars.indexOf(text[i]));
+            lettres[nbRt].push(chars.indexOf(text[i]))
         }
     }
 
@@ -90,40 +108,40 @@ function afficherAscii(){
 
     let txt="";
     for(let l=0; l<=nbRt; l++){
-        txt+="<table cellspacing='0' cellpadding='0'><tr>";
+        txt+="<table cellspacing='0' cellpadding='0'><tr>"
 
-        let i=0;
-        let j=0;
-        let k=0;
+        let i=0
+        let j=0
+        let k=0
 
         while(i<8){
-            txt+= "<tr>";
+            txt+= "<tr>"
             while(j<lettres[l].length){
                 if(lettres[l][j]===95){
-                    txt+="<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>";
+                    txt+="<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>"
                 }else{
                     while(k<ascii[font][lettres[l][j]][i].length){
                         if (ascii[font][lettres[l][j]][i][k]===' '){
-                            txt+="<td>&nbsp;&nbsp;</td>";
+                            txt+="<td>&nbsp;&nbsp;</td>"
                         }else{
-                            txt+="<td>"+ascii[font][lettres[l][j]][i][k]+"</td>";
+                            txt+="<td>"+ascii[font][lettres[l][j]][i][k]+"</td>"
                         }
-                        k++;
+                        k++
                     }
                 }
-                j++;
-                k=0;
+                j++
+                k=0
             }
-            txt+= "</tr>";
-            i++;
-            j=0;
+            txt+= "</tr>"
+            i++
+            j=0
         }
-        txt+="</table>";
+        txt+="</table>"
     }
 
     //===================================
 
-    output.innerHTML=txt;
+    output.innerHTML=txt
     output.style.color = color.value
     let count = 0
     for(let i of align){
@@ -132,5 +150,17 @@ function afficherAscii(){
         }
         count++
     }
-    document.getElementsByTagName('table')[0].style.margin = align[count].value
+    let tables = document.getElementsByTagName('table')
+    for(let table of tables){
+        table.style.margin = align[count].value
+    }
 }
+
+// let temp = document.querySelectorAll('table tr')
+// let tr = []
+// for(let i=0; i<temp.length; i++){
+//     tr.push(temp[i])
+// }
+// temp.map(x => {
+//     x.style.margin = align[count].value
+// })
