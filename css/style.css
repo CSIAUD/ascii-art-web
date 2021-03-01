@@ -1,0 +1,17 @@
+#main{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+#main > div{
+    margin: 0 10px;
+}
+#main > div:nth-child(2),
+#main > div:nth-child(3),
+#main > div:nth-child(4){
+    text-decoration: line-through;
+}
+#main > div > div{
+    display: flex;
+    flex-direction: column;
+}
