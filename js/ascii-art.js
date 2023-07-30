@@ -9,10 +9,6 @@ const align=document.getElementsByName('align'); // Récupération de l'aligneme
 const chars=['!','\"','#','$','%','&','\'','(',')','*','+',',','-','.','/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','[','\\',']','^','_','`','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','~','\n',' '];
 
 
-// const fichier0=document.getElementById('fichier0'); // Récupération du 1er fichier ascii
-// const fichier1=document.getElementById('fichier1'); // Récupération du 2eme fichier ascii
-// const fichier2=document.getElementById('fichier2'); // Récupération du 3eme fichier ascii
-
 const ascii=[
     [
         [
@@ -2919,7 +2915,6 @@ function afficherAscii(){
             }
         }
     }
-    // console.log(text)
 
 
     //------------------------------
@@ -2984,15 +2979,6 @@ function afficherAscii(){
         table.style.margin = align[count].value
     }
 }
-
-// let temp = document.querySelectorAll('table tr')
-// let tr = []
-// for(let i=0; i<temp.length; i++){
-//     tr.push(temp[i])
-// }
-// temp.map(x => {
-//     x.style.margin = align[count].value
-// })
 
 function checkBase(){
     if(input.value.toLowerCase() == input.placeholder.toLowerCase()){
